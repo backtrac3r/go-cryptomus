@@ -17,7 +17,7 @@ This repository contains an **unofficial Go wrapper** for the Cryptomus API, a c
 To install the Cryptomus API Go wrapper, use `go get`:
 
 ```
-go get github.com/itsjoniur/go-cryptomus
+go get github.com/backtrac3r/go-cryptomus
 ```
 
 ## Usage
@@ -28,13 +28,13 @@ Here's a quick example of how to use the wrapper:
 
 import (
     "fmt"
-    "github.com/itsjoniur/go-cryptomus"
+    "github.com/backtrac3r/go-cryptomus"
 )
 
 func main() {
     httpClient := http.DefaultClient
     client := cryptomus.New(httpClient, "your-merchant-id", "your-payment-api-key", "your-payout-api-key")
-    
+
     // Create an invoice
     invoiceReq := &cryptomus.InvoiceRequest{
         Amount: "10",
@@ -49,7 +49,7 @@ func main() {
     if err != nil {
         // Handle error
     }
-    
+
     fmt.Printf("Invoice created: %+v\n", invoice)
 }
 ```
