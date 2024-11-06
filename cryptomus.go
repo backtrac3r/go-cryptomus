@@ -27,7 +27,7 @@ type Cryptomus struct {
 // - merchantID: Your merchant identifier.
 // - paymentApiKey: Your API key for payment-related operations.
 // - payoutApiKey: Your API key for payout-related operations.
-func NewCryptomus(client *http.Client, merchantID, paymentApiKey, payoutApiKey string) *Cryptomus {
+func New(client *http.Client, merchantID, paymentApiKey, payoutApiKey string) *Cryptomus {
 	if client == nil {
 		client = http.DefaultClient
 	}
