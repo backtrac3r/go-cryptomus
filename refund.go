@@ -14,7 +14,7 @@ type RefundRequest struct {
 	Address     string `json:"address"`
 	IsSubtract  bool   `json:"is_subtract"`
 	PaymentUUID string `json:"uuid,omitempty"`
-	OrderId     string `json:"order_id,omitempty"`
+	OrderID     string `json:"order_id,omitempty"`
 }
 
 type refundRawResponse struct {
@@ -24,7 +24,7 @@ type refundRawResponse struct {
 
 type BlockedAddressRefundRequest struct {
 	WalletUUID string `json:"uuid,omitempty"`
-	OrderId    string `json:"order_id,omitempty"`
+	OrderID    string `json:"order_id,omitempty"`
 	Address    string `json:"address"`
 }
 
@@ -55,8 +55,8 @@ func (c *Cryptomus) Refund(refundRequest *RefundRequest) (bool, error) {
 }
 
 func (c *Cryptomus) BlockedAddressRefund(refundRequest *BlockedAddressRefundRequest) (*BlockedAddressRefundResponse, error) {
-	if refundRequest.WalletUUID == "" || refundRequest.OrderId == "" {
-		return nil, errors.New("you should pass one of required values [WalletUUID, OrderId]")
+	if refundRequest.WalletUUID == "" || refundRequest.OrderID == "" {
+		return nil, errors.New("you should pass one of required values [WalletUUID, OrderID]")
 	}
 
 	res, err := c.fetch("POST", blockedAddressRefundEndpoint, refundRequest)

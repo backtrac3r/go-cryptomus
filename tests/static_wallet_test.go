@@ -12,7 +12,7 @@ func TestCreateStaticWallet(t *testing.T) {
 	staticWalletReq := &cryptomus.StaticWalletRequest{
 		Currency: "TRX",
 		Network:  "tron",
-		OrderId:  "xxx",
+		OrderID:  "xxx",
 		StaticWalletRequestOptions: &cryptomus.StaticWalletRequestOptions{
 			UrlCallback: "https://example.com/cryptomus/callback",
 		},

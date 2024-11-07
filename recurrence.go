@@ -22,7 +22,7 @@ type RecurrenceRequest struct {
 	Name           string `json:"name"`                      // Required: Name or description of the payment
 	Period         string `json:"period"`                    // Required: Recurrence period (e.g., "monthly")
 	ToCurrency     string `json:"to_currency,omitempty"`     // Optional: Target currency
-	OrderId        string `json:"order_id,omitempty"`        // Optional: Order identifier in your system
+	OrderID        string `json:"order_id,omitempty"`        // Optional: Order identifier in your system
 	UrlCallback    string `json:"url_callback,omitempty"`    // Optional: Callback URL for payment status updates
 	DiscountDays   int    `json:"discount_days,omitempty"`   // Optional: Number of days for discount eligibility
 	DiscountAmount string `json:"discount_amount,omitempty"` // Optional: Amount of discount
@@ -33,7 +33,7 @@ type RecurrenceRequest struct {
 type Recurrence struct {
 	UUID           string    `json:"uuid"`                      // Unique identifier for the recurring payment
 	Name           string    `json:"name"`                      // Name or description of the payment
-	OrderId        string    `json:"order_id"`                  // Order identifier in your system
+	OrderID        string    `json:"order_id"`                  // Order identifier in your system
 	Amount         string    `json:"amount"`                    // Amount of the payment
 	Currency       string    `json:"currency"`                  // Currency code (e.g., "USD")
 	PayerCurrency  string    `json:"payer_currency"`            // Currency used by the payer
@@ -59,7 +59,7 @@ type recurrenceRawResponse struct {
 // RecurrenceInfoRequest represents the request structure for retrieving information about a recurring payment.
 type RecurrenceInfoRequest struct {
 	UUID    string `json:"uuid,omitempty"`     // Optional: UUID of the recurring payment
-	OrderId string `json:"order_id,omitempty"` // Optional: Order identifier in your system
+	OrderID string `json:"order_id,omitempty"` // Optional: Order identifier in your system
 }
 
 // recurrenceInfoRawResponse represents the raw response structure from the API for retrieving recurring payment information.
@@ -93,7 +93,7 @@ type recurrenceListRawResponse struct {
 // RecurrenceCancelRequest represents the request structure for canceling a recurring payment.
 type RecurrenceCancelRequest struct {
 	UUID    string `json:"uuid,omitempty"`     // Optional: UUID of the recurring payment to cancel
-	OrderId string `json:"order_id,omitempty"` // Optional: Order identifier in your system
+	OrderID string `json:"order_id,omitempty"` // Optional: Order identifier in your system
 }
 
 // recurrenceCancelRawResponse represents the raw response structure from the API for canceling a recurring payment.
@@ -140,13 +140,13 @@ func (c *Cryptomus) CreateRecurrence(recReq *RecurrenceRequest) (*Recurrence, er
 	return response.Result, nil
 }
 
-// GetRecurrenceInfo retrieves information about a specific recurring payment using UUID or OrderId.
+// GetRecurrenceInfo retrieves information about a specific recurring payment using UUID or OrderID.
 func (c *Cryptomus) GetRecurrenceInfo(infoReq *RecurrenceInfoRequest) (*Recurrence, error) {
 	if infoReq == nil {
 		return nil, errors.New("recurrence info request cannot be nil")
 	}
 
-	if infoReq.UUID == "" && infoReq.OrderId == "" {
+	if infoReq.UUID == "" && infoReq.OrderID == "" {
 		return nil, errors.New("either uuid or order_id must be provided")
 	}
 
@@ -226,13 +226,13 @@ func (c *Cryptomus) ListRecurrences(cursor string) (*RecurrenceListResponse, err
 	return response.Result, nil
 }
 
-// CancelRecurrence cancels a recurring payment using UUID or OrderId.
+// CancelRecurrence cancels a recurring payment using UUID or OrderID.
 func (c *Cryptomus) CancelRecurrence(cancelReq *RecurrenceCancelRequest) (*Recurrence, error) {
 	if cancelReq == nil {
 		return nil, errors.New("recurrence cancel request cannot be nil")
 	}
 
-	if cancelReq.UUID == "" && cancelReq.OrderId == "" {
+	if cancelReq.UUID == "" && cancelReq.OrderID == "" {
 		return nil, errors.New("either uuid or order_id must be provided")
 	}
 

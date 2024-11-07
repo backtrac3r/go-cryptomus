@@ -21,7 +21,7 @@ type WebhookConvert struct {
 type Webhook struct {
 	Type              string         `json:"type"`
 	UUID              string         `json:"uuid"`
-	OrderId           string         `json:"order_id"`
+	OrderID           string         `json:"order_id"`
 	Amount            string         `json:"amount"`
 	PaymentAmount     string         `json:"payment_amount"`
 	PaymentAmountUSD  string         `json:"payment_amount_usd"`
@@ -42,7 +42,7 @@ type Webhook struct {
 
 type ResendWebhookRequest struct {
 	PaymentUUID string `json:"uuid,omitempty"`
-	OrderId     string `json:"order_id,omitempty"`
+	OrderID     string `json:"order_id,omitempty"`
 }
 
 type resendWebhookRawResponse struct {
@@ -55,7 +55,7 @@ type TestWebhookRequest struct {
 	Currency    string `json:"currency"`
 	Network     string `json:"network"`
 	UUID        string `json:"uuid,omitempty"`
-	OrderId     string `json:"order_id,omitempty"`
+	OrderID     string `json:"order_id,omitempty"`
 	Status      string `json:"status"`
 }
 
@@ -93,8 +93,8 @@ func (c *Cryptomus) ParseWebhook(reqBody []byte, verifySign bool) (*Webhook, err
 }
 
 func (c *Cryptomus) ResendWebhook(resendRequest *ResendWebhookRequest) (bool, error) {
-	if resendRequest.PaymentUUID == "" || resendRequest.OrderId == "" {
-		return false, errors.New("you should pass one of required values [PaymentUUID, OrderId]")
+	if resendRequest.PaymentUUID == "" || resendRequest.OrderID == "" {
+		return false, errors.New("you should pass one of required values [PaymentUUID, OrderID]")
 	}
 
 	res, err := c.fetch("POST", resendWebhookEndpoint, resendRequest)

@@ -14,7 +14,7 @@ const (
 type StaticWalletRequest struct {
 	Currency string `json:"currency"`
 	Network  string `json:"network"`
-	OrderId  string `json:"order_id"`
+	OrderID  string `json:"order_id"`
 	*StaticWalletRequestOptions
 }
 
@@ -24,7 +24,7 @@ type StaticWalletRequestOptions struct {
 }
 
 type StaticWalletResponse struct {
-	OrderId    string `json:"order_id"`
+	OrderID    string `json:"order_id"`
 	WalletUUID string `json:"wallet_uuid"`
 	UUID       string `json:"uuid"`
 	Address    string `json:"address"`
@@ -47,7 +47,7 @@ type staticWalletQRCodeRawResponse struct {
 
 type BlockAddressRequest struct {
 	WalletUUID    string `json:"uuid,omitempty"`
-	OrderId       string `json:"order_id,omitempty"`
+	OrderID       string `json:"order_id,omitempty"`
 	IsForceRefund bool   `json:"is_force_refund,omitempty"`
 }
 
@@ -95,8 +95,8 @@ func (c *Cryptomus) GenerateStaticWalletQRCode(walletUUID string) (string, error
 }
 
 func (c *Cryptomus) BlockAddress(blockAddressReq *BlockAddressRequest) (*BlockAddressResponse, error) {
-	if blockAddressReq.WalletUUID == "" || blockAddressReq.OrderId == "" {
-		return nil, errors.New("you should pass one of required values [WalletUUID, OrderId]")
+	if blockAddressReq.WalletUUID == "" || blockAddressReq.OrderID == "" {
+		return nil, errors.New("you should pass one of required values [WalletUUID, OrderID]")
 	}
 
 	res, err := c.fetch("POST", blockWalletAddressEndpoint, blockAddressReq)

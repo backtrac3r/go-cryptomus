@@ -13,7 +13,7 @@ func createTestInvoice(t *testing.T) *cryptomus.Payment {
 	invoiceReq := &cryptomus.InvoiceRequest{
 		Amount:   "10",
 		Currency: "USD",
-		OrderId:  "xxy",
+		OrderID:  "xxy",
 		InvoiceRequestOptions: &cryptomus.InvoiceRequestOptions{
 			Network:     "tron",
 			UrlCallback: "https://example.com/cryptomus/callback",

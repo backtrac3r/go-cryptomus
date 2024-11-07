@@ -17,7 +17,7 @@ const (
 type InvoiceRequest struct {
 	Amount   string `json:"amount"`
 	Currency string `json:"currency"`
-	OrderId  string `json:"order_id"`
+	OrderID  string `json:"order_id"`
 	*InvoiceRequestOptions
 }
 
@@ -47,7 +47,7 @@ type Currency struct {
 
 type Payment struct {
 	UUID                    string    `json:"uuid"`
-	OrderId                 string    `json:"order_id"`
+	OrderID                 string    `json:"order_id"`
 	Amount                  string    `json:"amount"`
 	PaymentAmount           string    `json:"payment_amount,omitempty"`
 	PaymentAmountUSD        string    `json:"payment_amount_usd,omitempty"`
@@ -87,7 +87,7 @@ type paymentQRCodeRawResponse struct {
 
 type PaymentInfoRequest struct {
 	PaymentUUID string `json:"uuid,omitempty"`
-	OrderId     string `json:"order_id,omitempty"`
+	OrderID     string `json:"order_id,omitempty"`
 }
 
 type PaymentHistoryResponse struct {
@@ -167,8 +167,8 @@ func (c *Cryptomus) GeneratePaymentQRCode(paymentUUID string) (string, error) {
 }
 
 func (c *Cryptomus) GetPaymentInfo(paymentInfoReq *PaymentInfoRequest) (*Payment, error) {
-	if paymentInfoReq.PaymentUUID == "" || paymentInfoReq.OrderId == "" {
-		return nil, errors.New("you should pass one of required values [PaymentUUID, OrderId]")
+	if paymentInfoReq.PaymentUUID == "" || paymentInfoReq.OrderID == "" {
+		return nil, errors.New("you should pass one of required values [PaymentUUID, OrderID]")
 	}
 
 	res, err := c.fetch("POST", paymentInfoEndpoint, paymentInfoReq)

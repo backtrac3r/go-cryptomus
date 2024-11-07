@@ -39,7 +39,7 @@ func main() {
     invoiceReq := &cryptomus.InvoiceRequest{
         Amount: "10",
         Currency: "USD",
-        OrderId: "your-order-id",
+        OrderID: "your-order-id",
         InvoiceRequestOptions: &cryptomus.invoiceRequestOptions{
             Network: "tron",
             UrlCallback: "https://yourdomain.com/callback"

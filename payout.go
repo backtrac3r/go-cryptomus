@@ -16,7 +16,7 @@ const (
 type PayoutRequest struct {
 	Amount     string `json:"amount"`
 	Currency   string `json:"currency"`
-	OrderId    string `json:"order_id"`
+	OrderID    string `json:"order_id"`
 	Address    string `json:"address"`
 	IsSubtract bool   `json:"is_subtract"`
 	Network    string `json:"network"`
@@ -52,7 +52,7 @@ type payoutRawResponse struct {
 
 type PayoutInfoRequest struct {
 	PayoutUUID string `json:"uuid,omitempty"`
-	OrderId    string `json:"order_id,omitempty"`
+	OrderID    string `json:"order_id,omitempty"`
 }
 
 type PayoutHistoryResponse struct {
@@ -113,8 +113,8 @@ func (c *Cryptomus) CreatePayout(payoutReq *PayoutRequest) (*Payout, error) {
 }
 
 func (c *Cryptomus) GetPayoutInfo(payoutInfoReq *PayoutInfoRequest) (*Payout, error) {
-	if payoutInfoReq.PayoutUUID == "" || payoutInfoReq.OrderId == "" {
-		return nil, errors.New("you should pass one of required values [PayoutUUID, OrderId]")
+	if payoutInfoReq.PayoutUUID == "" || payoutInfoReq.OrderID == "" {
+		return nil, errors.New("you should pass one of required values [PayoutUUID, OrderID]")
 	}
 
 	res, err := c.fetch("POST", payoutInfoEndpoint, payoutInfoReq)
