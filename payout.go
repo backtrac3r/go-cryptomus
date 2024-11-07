@@ -33,6 +33,7 @@ type PayoutRequestOptions struct {
 
 type Payout struct {
 	UUID          string `json:"uuid"`
+	OrderID       string `json:"order_id"`
 	Amount        string `json:"amount"`
 	Currency      string `json:"currency"`
 	Network       string `json:"network"`
