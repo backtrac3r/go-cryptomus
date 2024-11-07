@@ -24,30 +24,30 @@ type RecurrenceRequest struct {
 	ToCurrency     string `json:"to_currency,omitempty"`     // Optional: Target currency
 	OrderId        string `json:"order_id,omitempty"`        // Optional: Order identifier in your system
 	UrlCallback    string `json:"url_callback,omitempty"`    // Optional: Callback URL for payment status updates
-	DiscountDays   *int   `json:"discount_days,omitempty"`   // Optional: Number of days for discount eligibility
+	DiscountDays   int    `json:"discount_days,omitempty"`   // Optional: Number of days for discount eligibility
 	DiscountAmount string `json:"discount_amount,omitempty"` // Optional: Amount of discount
 	AdditionalData string `json:"additional_data,omitempty"` // Optional: Additional data for the payment
 }
 
 // Recurrence represents the response structure for a recurring payment.
 type Recurrence struct {
-	UUID           string     `json:"uuid"`                      // Unique identifier for the recurring payment
-	Name           string     `json:"name"`                      // Name or description of the payment
-	OrderId        string     `json:"order_id"`                  // Order identifier in your system
-	Amount         string     `json:"amount"`                    // Amount of the payment
-	Currency       string     `json:"currency"`                  // Currency code (e.g., "USD")
-	PayerCurrency  string     `json:"payer_currency"`            // Currency used by the payer
-	PayerAmountUSD string     `json:"payer_amount_usd"`          // Payer amount in USD
-	PayerAmount    string     `json:"payer_amount"`              // Amount paid by the payer
-	UrlCallback    string     `json:"url_callback"`              // Callback URL for payment status updates
-	Period         string     `json:"period"`                    // Recurrence period (e.g., "monthly")
-	Status         string     `json:"status"`                    // Current status of the payment
-	Url            string     `json:"url"`                       // URL for payment processing
-	LastPayOff     *time.Time `json:"last_pay_off,omitempty"`    // Optional: Timestamp of the last payment
-	DiscountDays   *int       `json:"discount_days,omitempty"`   // Optional: Number of discount days
-	DiscountAmount string     `json:"discount_amount,omitempty"` // Optional: Amount of discount
-	EndOfDiscount  *time.Time `json:"end_of_discount,omitempty"` // Optional: Timestamp when the discount ends
-	AdditionalData string     `json:"additional_data,omitempty"` // Optional: Additional data for the payment
+	UUID           string    `json:"uuid"`                      // Unique identifier for the recurring payment
+	Name           string    `json:"name"`                      // Name or description of the payment
+	OrderId        string    `json:"order_id"`                  // Order identifier in your system
+	Amount         string    `json:"amount"`                    // Amount of the payment
+	Currency       string    `json:"currency"`                  // Currency code (e.g., "USD")
+	PayerCurrency  string    `json:"payer_currency"`            // Currency used by the payer
+	PayerAmountUSD string    `json:"payer_amount_usd"`          // Payer amount in USD
+	PayerAmount    string    `json:"payer_amount"`              // Amount paid by the payer
+	UrlCallback    string    `json:"url_callback"`              // Callback URL for payment status updates
+	Period         string    `json:"period"`                    // Recurrence period (e.g., "monthly")
+	Status         string    `json:"status"`                    // Current status of the payment
+	Url            string    `json:"url"`                       // URL for payment processing
+	LastPayOff     time.Time `json:"last_pay_off,omitempty"`    // Optional: Timestamp of the last payment
+	DiscountDays   int       `json:"discount_days,omitempty"`   // Optional: Number of discount days
+	DiscountAmount string    `json:"discount_amount,omitempty"` // Optional: Amount of discount
+	EndOfDiscount  time.Time `json:"end_of_discount,omitempty"` // Optional: Timestamp when the discount ends
+	AdditionalData string    `json:"additional_data,omitempty"` // Optional: Additional data for the payment
 }
 
 // recurrenceRawResponse represents the raw response structure from the API for recurring payments.
