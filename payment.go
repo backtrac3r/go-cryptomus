@@ -30,7 +30,7 @@ type InvoiceRequestOptions struct {
 	Lifetime               uint16     `json:"lifetime,omitempty"`
 	ToCurrency             string     `json:"to_currency,omitempty"`
 	Subtract               uint8      `json:"subtract,omitempty"`
-	AccuarcyPaymentPercent uint8      `json:"accuarcy_payment_percent,omitempty"`
+	AccuarcyPaymentPercent float32    `json:"accuarcy_payment_percent,omitempty"`
 	AdditionalData         string     `json:"additional_data,omitempty"`
 	Currencies             []Currency `json:"currencies,omitempty"`
 	ExceptCurrencies       []Currency `json:"except_currencies,omitempty"`
