@@ -95,7 +95,7 @@ func (c *Cryptomus) GenerateStaticWalletQRCode(walletUUID string) (string, error
 }
 
 func (c *Cryptomus) BlockAddress(blockAddressReq *BlockAddressRequest) (*BlockAddressResponse, error) {
-	if blockAddressReq.WalletUUID == "" || blockAddressReq.OrderID == "" {
+	if blockAddressReq.WalletUUID == "" && blockAddressReq.OrderID == "" {
 		return nil, errors.New("you should pass one of required values [WalletUUID, OrderID]")
 	}
 

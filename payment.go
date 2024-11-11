@@ -167,7 +167,7 @@ func (c *Cryptomus) GeneratePaymentQRCode(paymentUUID string) (string, error) {
 }
 
 func (c *Cryptomus) GetPaymentInfo(paymentInfoReq *PaymentInfoRequest) (*Payment, error) {
-	if paymentInfoReq.PaymentUUID == "" || paymentInfoReq.OrderID == "" {
+	if paymentInfoReq.PaymentUUID == "" && paymentInfoReq.OrderID == "" {
 		return nil, errors.New("you should pass one of required values [PaymentUUID, OrderID]")
 	}
 

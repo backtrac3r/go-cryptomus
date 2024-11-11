@@ -93,7 +93,7 @@ func (c *Cryptomus) ParseWebhook(reqBody []byte, verifySign bool) (*Webhook, err
 }
 
 func (c *Cryptomus) ResendWebhook(resendRequest *ResendWebhookRequest) (bool, error) {
-	if resendRequest.PaymentUUID == "" || resendRequest.OrderID == "" {
+	if resendRequest.PaymentUUID == "" && resendRequest.OrderID == "" {
 		return false, errors.New("you should pass one of required values [PaymentUUID, OrderID]")
 	}
 

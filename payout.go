@@ -114,7 +114,7 @@ func (c *Cryptomus) CreatePayout(payoutReq *PayoutRequest) (*Payout, error) {
 }
 
 func (c *Cryptomus) GetPayoutInfo(payoutInfoReq *PayoutInfoRequest) (*Payout, error) {
-	if payoutInfoReq.PayoutUUID == "" || payoutInfoReq.OrderID == "" {
+	if payoutInfoReq.PayoutUUID == "" && payoutInfoReq.OrderID == "" {
 		return nil, errors.New("you should pass one of required values [PayoutUUID, OrderID]")
 	}
 

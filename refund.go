@@ -55,7 +55,7 @@ func (c *Cryptomus) Refund(refundRequest *RefundRequest) (bool, error) {
 }
 
 func (c *Cryptomus) BlockedAddressRefund(refundRequest *BlockedAddressRefundRequest) (*BlockedAddressRefundResponse, error) {
-	if refundRequest.WalletUUID == "" || refundRequest.OrderID == "" {
+	if refundRequest.WalletUUID == "" && refundRequest.OrderID == "" {
 		return nil, errors.New("you should pass one of required values [WalletUUID, OrderID]")
 	}
 
