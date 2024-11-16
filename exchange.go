@@ -10,7 +10,7 @@ import (
 
 // Endpoint constants
 const (
-	exchangeRateListEndpoint = "/v1/exchange-rate/%s/list"
+	exchangeRateListEndpoint = "exchange-rate/%s/list"
 )
 
 // ExchangeRate представляет структуру обменного курса.
@@ -28,8 +28,6 @@ type exchangeRateListRawResponse struct {
 
 // ListExchangeRates запрашивает список обменных курсов для указанной валюты.
 // Параметр currency является обязательным и должен содержать код валюты (например, "ETH").
-// ListExchangeRates запрашивает список обменных курсов для указанной валюты.
-// Параметр currency является обязательным и должен содержать код валюты (например, "ETH").
 func (c *Cryptomus) ListExchangeRates(currency string) ([]ExchangeRate, error) {
 	// Проверка обязательного параметра currency
 	currency = strings.TrimSpace(currency)
@@ -45,6 +43,9 @@ func (c *Cryptomus) ListExchangeRates(currency string) ([]ExchangeRate, error) {
 	if err != nil {
 		return nil, fmt.Errorf("invalid base URL or endpoint: %w", err)
 	}
+
+	// Логируем сформированный URL для диагностики
+	fmt.Printf("Requesting URL: %s\n", fullURL)
 
 	// Создаём новый HTTP GET-запрос без тела
 	req, err := http.NewRequest("GET", fullURL, nil)
