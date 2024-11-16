@@ -44,9 +44,6 @@ func (c *Cryptomus) ListExchangeRates(currency string) ([]ExchangeRate, error) {
 		return nil, fmt.Errorf("invalid base URL or endpoint: %w", err)
 	}
 
-	// Логируем сформированный URL для диагностики
-	fmt.Printf("Requesting URL: %s\n", fullURL)
-
 	// Создаём новый HTTP GET-запрос без тела
 	req, err := http.NewRequest("GET", fullURL, nil)
 	if err != nil {
