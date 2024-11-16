@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
+	"path"
 )
 
 // BaseURL is the default API endpoint for Cryptomus.
@@ -58,34 +60,56 @@ func (c *Cryptomus) SetBaseURL(baseURL string) {
 // - error: Error if the request failed.
 func (c *Cryptomus) fetch(method, endpoint string, payload interface{}) (*http.Response, error) {
 	// Marshal the payload into JSON.
-	body, err := json.Marshal(payload)
-	if err != nil {
-		return nil, fmt.Errorf("failed to marshal payload: %w", err)
+	var bodyBytes []byte
+	var err error
+	if payload != nil {
+		bodyBytes, err = json.Marshal(payload)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal payload: %w", err)
+		}
 	}
 
 	// Generate the signature using the payment API key.
-	// Assumes that the signRequest method is implemented in sign.go.
-	sign, err := c.signRequest(c.paymentApiKey, body)
+	// Предполагается, что метод signRequest реализован в sign.go.
+	sign, err := c.signRequest(c.paymentApiKey, bodyBytes)
 	if err != nil {
 		return nil, fmt.Errorf("failed to generate signature: %w", err)
 	}
 
-	// Create a new HTTP request.
-	req, err := http.NewRequest(method, c.baseURL+endpoint, bytes.NewBuffer(body))
+	// Создаём полный URL с использованием joinURL.
+	fullURL, err := joinURL(c.baseURL, endpoint)
+	if err != nil {
+		return nil, fmt.Errorf("failed to join base URL and endpoint: %w", err)
+	}
+
+	// Создаём новый HTTP-запрос.
+	req, err := http.NewRequest(method, fullURL, bytes.NewBuffer(bodyBytes))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create HTTP request: %w", err)
 	}
 
-	// Set the required headers.
+	// Устанавливаем необходимые заголовки.
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("merchant", c.merchantID)
 	req.Header.Set("sign", sign)
 
-	// Execute the HTTP request.
+	// Выполняем HTTP-запрос.
 	res, err := c.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("HTTP request failed: %w", err)
 	}
 
 	return res, nil
+}
+
+// joinURL корректно объединяет base и endpoint в полный URL.
+func joinURL(base, endpoint string) (string, error) {
+	u, err := url.Parse(base)
+	if err != nil {
+		return "", err
+	}
+
+	// Объединяем пути, избегая двойных слешей
+	u.Path = path.Join(u.Path, endpoint)
+	return u.String(), nil
 }

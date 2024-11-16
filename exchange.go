@@ -28,6 +28,8 @@ type exchangeRateListRawResponse struct {
 
 // ListExchangeRates запрашивает список обменных курсов для указанной валюты.
 // Параметр currency является обязательным и должен содержать код валюты (например, "ETH").
+// ListExchangeRates запрашивает список обменных курсов для указанной валюты.
+// Параметр currency является обязательным и должен содержать код валюты (например, "ETH").
 func (c *Cryptomus) ListExchangeRates(currency string) ([]ExchangeRate, error) {
 	// Проверка обязательного параметра currency
 	currency = strings.TrimSpace(currency)
@@ -38,14 +40,29 @@ func (c *Cryptomus) ListExchangeRates(currency string) ([]ExchangeRate, error) {
 	// Формируем эндпоинт с указанной валютой
 	endpoint := fmt.Sprintf(exchangeRateListEndpoint, currency)
 
-	// Отправляем GET-запрос без тела запроса (payload = nil)
-	res, err := c.fetch("GET", endpoint, nil)
+	// Формируем полный URL, корректно объединяя baseURL и endpoint
+	fullURL, err := joinURL(c.baseURL, endpoint)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch exchange rates: %w", err)
+		return nil, fmt.Errorf("invalid base URL or endpoint: %w", err)
+	}
+
+	// Создаём новый HTTP GET-запрос без тела
+	req, err := http.NewRequest("GET", fullURL, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create HTTP request: %w", err)
+	}
+
+	// Устанавливаем необходимые заголовки
+	req.Header.Set("Accept", "application/json") // Опционально, если API требует
+
+	// Отправляем запрос через существующий HTTP-клиент
+	res, err := c.client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("HTTP request failed: %w", err)
 	}
 	defer res.Body.Close()
 
-	// Проверяем статус-код HTTP-ответа
+	// Проверяем статус-код ответа
 	if res.StatusCode != http.StatusOK {
 		// Попытка декодировать сообщение об ошибке из тела ответа
 		var errResp struct {
